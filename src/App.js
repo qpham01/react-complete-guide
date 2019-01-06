@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import "./App.css";
+// Can now import an object that contains CSS classes as properties
+import classes from "./App.css";
 import Person from "./components/Person";
 
 // Component states should only be changed in a select few components that are containers, like the top-level App component.
@@ -101,19 +102,21 @@ class App extends Component {
             click={this.onClick.bind(this, "Max!")}
           />
     */
-    const classes = [];
+    const assignedClasses = [];
     if (this.state.persons.length <= 2) {
-      classes.push("red");
+      assignedClasses.push(classes.red);
     }
     if (this.state.persons.length <= 1) {
-      classes.push("bold");
+      assignedClasses.push(classes.bold);
     }
 
     return (
       // To use advanced styles like media queries
-      <div className="App">
+      // classes.App is now the unique classname generated per configuration
+      // in webpack.config.js.
+      <div className={classes.App}>
         <h1>Hi I am a React App</h1>
-        <p className={classes.join(" ")}>This is a paragraph</p>
+        <p className={assignedClasses.join(" ")}>This is a paragraph</p>
         <button style={style} onClick={this.togglePersonHandler}>
           Toggle Show Persons
         </button>

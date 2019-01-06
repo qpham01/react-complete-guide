@@ -1,5 +1,5 @@
 import React from "react";
-import "./Person.css";
+import classes from "./Person.css";
 // Use functional component as much as possible.
 // Only use class component when there's state that can change
 
@@ -8,7 +8,7 @@ import "./Person.css";
 // and when the input is changed the name also changed with it.
 const person = props => {
   return (
-    <div className="Person" onClick={props.click}>
+    <div className={classes.Person} onClick={props.click}>
       <p>
         Name: {props.name}, Age: {props.age}
       </p>
