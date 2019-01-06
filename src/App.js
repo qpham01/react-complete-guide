@@ -58,6 +58,25 @@ class App extends Component {
       padding: "8px",
       cursor: "pointer"
     };
+
+    let persons = null;
+    if (this.state.showPerson === true) {
+      persons = (
+        <div>
+          <Person {...this.state.persons[0]} changed={this.nameChangeHandler} />
+          <Person {...this.state.persons[1]} changed={this.nameChangeHandler}>
+            {" "}
+            My Hobbies: Racing
+          </Person>
+          <Person
+            {...this.state.persons[2]}
+            changed={this.nameChangeHandler}
+            click={this.onClick.bind(this, "Max!")}
+          />
+        </div>
+      );
+    }
+
     return (
       <div className="App">
         <h1>Hi I am a React App</h1>
@@ -68,23 +87,7 @@ class App extends Component {
         <button style={style} onClick={this.togglePersonHandler}>
           Toggle Show Persons
         </button>
-        {this.state.showPerson === true ? (
-          <div>
-            <Person
-              {...this.state.persons[0]}
-              changed={this.nameChangeHandler}
-            />
-            <Person {...this.state.persons[1]} changed={this.nameChangeHandler}>
-              {" "}
-              My Hobbies: Racing
-            </Person>
-            <Person
-              {...this.state.persons[2]}
-              changed={this.nameChangeHandler}
-              click={this.onClick.bind(this, "Max!")}
-            />
-          </div>
-        ) : null}
+        {persons}
       </div>
     );
     // Above JSX code is compiled to JavaScript below.
