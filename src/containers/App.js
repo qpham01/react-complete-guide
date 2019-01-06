@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 // Can now import an object that contains CSS classes as properties
 import classes from "./App.css";
-import Person from "./components/Person";
+import Persons from "../components/Persons";
+import Cockpit from "../components/Cockpit";
 
 // Component states should only be changed in a select few components that are containers, like the top-level App component.
 // Container contains some part of the application's state.
@@ -51,74 +52,49 @@ class App extends Component {
     const doesShow = this.state.showPerson;
     this.setState({ showPerson: !doesShow });
   };
-  // Render is the one thing every component has to do... to
-  // render HTML to the DOM to visually show the component.
 
-  // Note: can pass method as properties to other components
-  // to allow them to trigger state changes without them having
-  // states.
   render() {
     let persons = null;
-    let btnClass = "";
 
-    if (this.state.showPerson === true) {
+    if (this.state.showPerson) {
       persons = (
         <div>
-          {this.state.persons.map((person, index) => {
-            return (
-              <Person
-                {...person}
-                key={index}
-                click={() => this.deletePersonHandler(index)}
-                changed={event => this.nameChangeHandler(event, index)}
-              />
-            );
-          })}
+          <Persons
+            persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangeHandler}
+          />
         </div>
       );
-      btnClass = classes.red;
-    }
-
-    /*
-          <Person {...this.state.persons[0]} changed={this.nameChangeHandler} />
-          <Person {...this.state.persons[1]} changed={this.nameChangeHandler}>
-            {" "}
-            My Hobbies: Racing
-          </Person>
-          <Person
-            {...this.state.persons[2]}
-            changed={this.nameChangeHandler}
-            click={this.onClick.bind(this, "Max!")}
-          />
-    */
-    const assignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.red);
-    }
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push(classes.bold);
     }
 
     return (
-      // To use advanced styles like media queries
-      // classes.App is now the unique classname generated per configuration
-      // in webpack.config.js.
       <div className={classes.App}>
-        <h1>Hi I am a React App</h1>
-        <p className={assignedClasses.join(" ")}>This is a paragraph</p>
-        <button className={btnClass} onClick={this.togglePersonHandler}>
-          Toggle Show Persons
-        </button>
+        <Cockpit
+          showPerson={this.state.showPerson}
+          persons={this.state.persons}
+          clicked={this.togglePersonHandler}
+        />
         {persons}
       </div>
     );
-    // Above JSX code is compiled to JavaScript below.
-    // return React.createElement(
-    //   "div",
-    //   { className: "App" },
-    //   React.createElement("h1", null, "Hi I'm a React App!!!")
-    // );
   }
 }
 
 export default App;
+// Render is the one thing every component has to do... to
+// render HTML to the DOM to visually show the component.
+
+// Note: can pass method as properties to other components
+// to allow them to trigger state changes without them having
+// states.
+// To use advanced styles like media queries in .css files,
+// classes.App is now the unique classname generated per configuration
+// in webpack.config.js.
+
+// Above JSX code is compiled to JavaScript below.
+// return React.createElement(
+//   "div",
+//   { className: "App" },
+//   React.createElement("h1", null, "Hi I'm a React App!!!")
+// );
