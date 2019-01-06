@@ -27,15 +27,23 @@ class App extends Component {
     // Only two things that causes React to render: state changes or props are set.
   };
 
-  nameChangeHandler = event => {
-    console.log(event.target.value);
-    this.setState({
-      persons: [
-        { name: "Max", age: 28 },
-        { name: event.target.value, age: 29 },
-        { name: "Jane", age: 26 }
-      ]
-    });
+  nameChangeHandler = (event, index) => {
+    // Copy person at index to not change current state.
+    const person = { ...this.state.persons[index] };
+    person.name = event.target.value;
+
+    // Copy persons array to not change current state.
+    const persons = [...this.state.persons];
+    persons[index] = person;
+    this.setState({ persons: persons });
+  };
+
+  deletePersonHandler = personIndex => {
+    // const persons = this.state.persons.slice();
+    // Fully copy state before splicing it so that original state is immutable.
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons });
   };
 
   togglePersonHandler = () => {
@@ -63,6 +71,21 @@ class App extends Component {
     if (this.state.showPerson === true) {
       persons = (
         <div>
+          {this.state.persons.map((person, index) => {
+            return (
+              <Person
+                {...person}
+                key={index}
+                // click={() => this.deletePersonHandler(index)}
+                changed={event => this.nameChangeHandler(event, index)}
+              />
+            );
+          })}
+        </div>
+      );
+    }
+
+    /*
           <Person {...this.state.persons[0]} changed={this.nameChangeHandler} />
           <Person {...this.state.persons[1]} changed={this.nameChangeHandler}>
             {" "}
@@ -73,10 +96,7 @@ class App extends Component {
             changed={this.nameChangeHandler}
             click={this.onClick.bind(this, "Max!")}
           />
-        </div>
-      );
-    }
-
+    */
     return (
       <div className="App">
         <h1>Hi I am a React App</h1>
