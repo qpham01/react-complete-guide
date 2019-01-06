@@ -26,7 +26,8 @@ class App extends PureComponent {
         { name: "Jane", age: 26 }
       ],
       otherState: "some other value",
-      showPerson: false
+      showPerson: false,
+      toggleClickCounter: 0
     };
   }
 
@@ -103,7 +104,14 @@ class App extends PureComponent {
 
   togglePersonHandler = () => {
     const doesShow = this.state.showPerson;
-    this.setState({ showPerson: !doesShow });
+    // Set state is async call so capture prevState in an anonymous
+    // call so that it can't be changed during state setting.
+    this.setState((prevState, props) => {
+      return {
+        showPerson: !doesShow,
+        toggleClickCounter: prevState.toggleClickCounter + 1
+      };
+    });
   };
 
   render() {
