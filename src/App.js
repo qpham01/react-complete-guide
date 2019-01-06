@@ -58,20 +58,10 @@ class App extends Component {
   // to allow them to trigger state changes without them having
   // states.
   render() {
-    // Scoped styles can be used to apply styles to only select
-    // elements and not a whole component.
-    const style = {
-      backgroundColor: "green",
-      font: "inherit",
-      border: "2px solid blue",
-      padding: "8px",
-      cursor: "pointer"
-    };
-
     let persons = null;
-    if (this.state.showPerson === true) {
-      style.backgroundColor = "red";
+    let btnClass = "";
 
+    if (this.state.showPerson === true) {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
@@ -86,8 +76,7 @@ class App extends Component {
           })}
         </div>
       );
-    } else {
-      style.backgroundColor = "green";
+      btnClass = classes.red;
     }
 
     /*
@@ -117,7 +106,7 @@ class App extends Component {
       <div className={classes.App}>
         <h1>Hi I am a React App</h1>
         <p className={assignedClasses.join(" ")}>This is a paragraph</p>
-        <button style={style} onClick={this.togglePersonHandler}>
+        <button className={btnClass} onClick={this.togglePersonHandler}>
           Toggle Show Persons
         </button>
         {persons}
