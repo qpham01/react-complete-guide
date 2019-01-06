@@ -1,4 +1,5 @@
 import React from "react";
+import Radium from "radium";
 import "./Person.css";
 // Use functional component as much as possible.
 // Only use class component when there's state that can change
@@ -7,8 +8,13 @@ import "./Person.css";
 // is set up where the value of the input is set to the name
 // and when the input is changed the name also changed with it.
 const person = props => {
+  const style = {
+    "@media (min-width: 500px)": {
+      width: "450px"
+    }
+  };
   return (
-    <div className="Person" onClick={props.click}>
+    <div className="Person" style={style} onClick={props.click}>
       <p>
         Name: {props.name}, Age: {props.age}
       </p>
@@ -18,4 +24,4 @@ const person = props => {
   );
 };
 
-export default person;
+export default Radium(person);

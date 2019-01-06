@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import Radium, { StyleRoot } from "radium";
 import Person from "./components/Person";
 
 // Component states should only be changed in a select few components that are containers, like the top-level App component.
@@ -64,12 +65,18 @@ class App extends Component {
       font: "inherit",
       border: "2px solid blue",
       padding: "8px",
-      cursor: "pointer"
+      cursor: "pointer",
+      ":hover": { backgroundColor: "lightgreen", color: "black" }
     };
 
     let persons = null;
     if (this.state.showPerson === true) {
       style.backgroundColor = "red";
+      style[":hover"] = {
+        backgroundColor: "salmon",
+        color: "white"
+      };
+
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
@@ -109,14 +116,17 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
-        <h1>Hi I am a React App</h1>
-        <p className={classes.join(" ")}>This is a paragraph</p>
-        <button style={style} onClick={this.togglePersonHandler}>
-          Toggle Show Persons
-        </button>
-        {persons}
-      </div>
+      // To use advanced styles like media queries
+      <StyleRoot>
+        <div className="App">
+          <h1>Hi I am a React App</h1>
+          <p className={classes.join(" ")}>This is a paragraph</p>
+          <button style={style} onClick={this.togglePersonHandler}>
+            Toggle Show Persons
+          </button>
+          {persons}
+        </div>
+      </StyleRoot>
     );
     // Above JSX code is compiled to JavaScript below.
     // return React.createElement(
@@ -127,4 +137,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Radium(App);
