@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./Person.css";
+import classes from "../styles/Person.css";
 // Use functional component as much as possible.
 // Only use class component when there's state that can change
 

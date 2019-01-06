@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // Can now import an object that contains CSS classes as properties
-import classes from "./App.css";
+import classes from "../styles/App.css";
 import Persons from "../components/Persons";
 import Cockpit from "../components/Cockpit";
 
@@ -71,6 +71,7 @@ class App extends Component {
     return (
       <div className={classes.App}>
         <Cockpit
+          appTitle={this.props.title}
           showPerson={this.state.showPerson}
           persons={this.state.persons}
           clicked={this.togglePersonHandler}
@@ -98,3 +99,17 @@ export default App;
 //   { className: "App" },
 //   React.createElement("h1", null, "Hi I'm a React App!!!")
 // );
+
+// Change state only in a very few container components like App.js.
+// All other components should be functional components that don't
+// manage states.
+
+// Stateful components:           Stateless components:
+// --------------------------------------------------------------------
+// class extends Component        const XY = props => {...}
+// - Can access state and props   - Cannot access state
+//   via this.state & this.props  - Can access props function parameter
+// - Have lifecycle hooks         - Don't have lifecycle hooks
+//   (e.g. compenentDidMount)
+// - Use only if need to manage   - Use in all other cases.
+//   state or use lifecycle hooks
