@@ -14,7 +14,9 @@ class App extends Component {
       { name: "Max", age: 28 },
       { name: "Manu", age: 29 },
       { name: "Jane", age: 26 }
-    ]
+    ],
+    otherState: "some other value",
+    showPerson: false
   };
 
   onClick = newName => {
@@ -34,6 +36,11 @@ class App extends Component {
         { name: "Jane", age: 26 }
       ]
     });
+  };
+
+  togglePersonHandler = () => {
+    const doesShow = this.state.showPerson;
+    this.setState({ showPerson: !doesShow });
   };
   // Render is the one thing every component has to do... to
   // render HTML to the DOM to visually show the component.
@@ -58,16 +65,26 @@ class App extends Component {
         <button style={style} onClick={() => this.onClick("Maximilian")}>
           Switch Name
         </button>
-        <Person {...this.state.persons[0]} changed={this.nameChangeHandler} />
-        <Person {...this.state.persons[1]} changed={this.nameChangeHandler}>
-          {" "}
-          My Hobbies: Racing
-        </Person>
-        <Person
-          {...this.state.persons[2]}
-          changed={this.nameChangeHandler}
-          click={this.onClick.bind(this, "Max!")}
-        />
+        <button style={style} onClick={this.togglePersonHandler}>
+          Toggle Show Persons
+        </button>
+        {this.state.showPerson === true ? (
+          <div>
+            <Person
+              {...this.state.persons[0]}
+              changed={this.nameChangeHandler}
+            />
+            <Person {...this.state.persons[1]} changed={this.nameChangeHandler}>
+              {" "}
+              My Hobbies: Racing
+            </Person>
+            <Person
+              {...this.state.persons[2]}
+              changed={this.nameChangeHandler}
+              click={this.onClick.bind(this, "Max!")}
+            />
+          </div>
+        ) : null}
       </div>
     );
     // Above JSX code is compiled to JavaScript below.
