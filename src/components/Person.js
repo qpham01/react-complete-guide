@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import classes from "../styles/Person.css";
 // Use functional component as much as possible.
 // Only use class component when there's state that can change
@@ -6,16 +6,34 @@ import classes from "../styles/Person.css";
 // By adding a value property to the input, a 2-way binding
 // is set up where the value of the input is set to the name
 // and when the input is changed the name also changed with it.
-const person = props => {
-  return (
-    <div className={classes.Person} onClick={props.click}>
-      <p>
-        Name: {props.name}, Age: {props.age}
-      </p>
-      <p>{props.children}</p>
-      <input type="text" onChange={props.changed} value={props.name} />
-    </div>
-  );
-};
+class Person extends Component {
+  constructor(props) {
+    super(props);
+    console.log("[>> Person.js] Inside constructor", props);
+  }
 
-export default person;
+  componentWillMount() {
+    console.log("[>> Person.js] Inside componentWillMount");
+  }
+
+  componentDidMount() {
+    console.log("[>> Person.js] Inside componentDidMount");
+  }
+  render() {
+    console.log("[>> Person.js] Inside render");
+    return (
+      <div className={classes.Person} onClick={this.props.click}>
+        <p>
+          Name: {this.props.name}, Age: {this.props.age}
+        </p>
+        <p>{this.props.children}</p>
+        <input
+          type="text"
+          onChange={this.props.changed}
+          value={this.props.name}
+        />
+      </div>
+    );
+  }
+}
+export default Person;

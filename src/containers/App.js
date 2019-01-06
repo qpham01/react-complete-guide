@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 // Can now import an object that contains CSS classes as properties
 import classes from "../styles/App.css";
 import Persons from "../components/Persons";
@@ -9,17 +9,68 @@ import Cockpit from "../components/Cockpit";
 
 // If events occurs in functional components, pass in a handler
 // from a container to handle the state change from the event.
-class App extends Component {
-  // state is managed internally
-  state = {
-    persons: [
-      { name: "Max", age: 28 },
-      { name: "Manu", age: 29 },
-      { name: "Jane", age: 26 }
-    ],
-    otherState: "some other value",
-    showPerson: false
-  };
+
+// PureComponent will to shallow state comparison to determine whether component
+// should update.
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
+    console.log("[App.js] Inside constructor", props);
+    // state is managed internally
+    this.state = {
+      persons: [
+        { name: "Max", age: 28 },
+        { name: "Manu", age: 29 },
+        { name: "Jane", age: 26 }
+      ],
+      otherState: "some other value",
+      showPerson: false
+    };
+  }
+
+  componentWillMount() {
+    console.log("[App.js] Inside componentWillMount");
+  }
+
+  componentDidMount() {
+    console.log("[App.js] Inside componentDidMount");
+  }
+
+  // Remove to use PureComponent base class
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log("[UPDATE App.js] Inside shouldComponentUpdate", nextProps);
+  //   return (
+  //     nextState.persons !== this.state.persons ||
+  //     nextState.showPerson !== this.state.showPerson
+  //   );
+  // }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log(
+      "[UPDATE App.js] Inside componentsWillUpdate",
+      nextProps,
+      nextState
+    );
+  }
+
+  componentDidUpdate() {
+    console.log(
+      "[UPDATE App.js] Inside componentsDidUpdate",
+      this.props,
+      this.state
+    );
+  }
+
+  // // state is managed internally
+  // state = {
+  //   persons: [
+  //     { name: "Max", age: 28 },
+  //     { name: "Manu", age: 29 },
+  //     { name: "Jane", age: 26 }
+  //   ],
+  //   otherState: "some other value",
+  //   showPerson: false
+  // };
 
   onClick = newName => {
     //console.log("Was clicked");
@@ -54,6 +105,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("[App.js] Inside render");
     let persons = null;
 
     if (this.state.showPerson) {
@@ -70,6 +122,13 @@ class App extends Component {
 
     return (
       <div className={classes.App}>
+        <button
+          onClick={() => {
+            this.setState({ showPerson: true });
+          }}
+        >
+          Show Persons{" "}
+        </button>
         <Cockpit
           appTitle={this.props.title}
           showPerson={this.state.showPerson}
