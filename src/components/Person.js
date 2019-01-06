@@ -7,6 +7,10 @@ import classes from "./Person.css";
 // is set up where the value of the input is set to the name
 // and when the input is changed the name also changed with it.
 const person = props => {
+  const rnd = Math.random();
+  if (rnd > 1) {
+    throw new Error("Something went wrong");
+  }
   return (
     <div className={classes.Person} onClick={props.click}>
       <p>
