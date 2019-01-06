@@ -55,6 +55,7 @@ class Persons extends Component {
         <Person
           {...person}
           key={index}
+          position={index}
           click={() => this.props.clicked(index)}
           changed={event => this.props.changed(event, index)}
         />

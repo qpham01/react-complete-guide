@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import classes from "../styles/Person.css";
 import WithClass from "./WithClass";
+import PropTypes from "prop-types";
+
 // Use functional component as much as possible.
 // Only use class component when there's state that can change
 
@@ -19,6 +21,9 @@ class Person extends Component {
 
   componentDidMount() {
     console.log("[>> Person.js] Inside componentDidMount");
+    if (this.props.position === 0) {
+      this.inputElement.focus();
+    }
   }
   render() {
     console.log("[>> Person.js] Inside render");
@@ -29,6 +34,9 @@ class Person extends Component {
         </p>
         <p>{this.props.children}</p>
         <input
+          ref={inp => {
+            this.inputElement = inp;
+          }}
           type="text"
           onChange={this.props.changed}
           value={this.props.name}
@@ -37,4 +45,12 @@ class Person extends Component {
     );
   }
 }
+
+Person.propTypes = {
+  click: PropTypes.func.isRequired,
+  changed: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  age: PropTypes.number.isRequired
+};
+
 export default Person;
