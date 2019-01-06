@@ -2,7 +2,6 @@ import React, { Component } from "react";
 // Can now import an object that contains CSS classes as properties
 import classes from "./App.css";
 import Person from "./components/Person";
-import ErrorBoundary from "./components/ErrorBoundary";
 
 // Component states should only be changed in a select few components that are containers, like the top-level App component.
 // Container contains some part of the application's state.
@@ -67,14 +66,12 @@ class App extends Component {
         <div>
           {this.state.persons.map((person, index) => {
             return (
-              <ErrorBoundary key={index}>
-                <Person
-                  {...person}
-                  key={index}
-                  click={() => this.deletePersonHandler(index)}
-                  changed={event => this.nameChangeHandler(event, index)}
-                />
-              </ErrorBoundary>
+              <Person
+                {...person}
+                key={index}
+                click={() => this.deletePersonHandler(index)}
+                changed={event => this.nameChangeHandler(event, index)}
+              />
             );
           })}
         </div>
