@@ -89,3 +89,14 @@ Order of lifecycle method calls during update.
 
 - Do: Cause side effects
 - Don't: Update state which will trigger re-render
+
+## Return Multiple Adjacent Tags
+
+Can return multiple adjacent tags in an array as long as each tag has a key property. For example:
+
+```javascript
+render()
+{
+  return [<p key="0"/><button key="1"/><input key="2"/>]
+}
+```

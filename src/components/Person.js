@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import classes from "../styles/Person.css";
+import WithClass from "./WithClass";
 // Use functional component as much as possible.
 // Only use class component when there's state that can change
 
@@ -22,8 +23,8 @@ class Person extends Component {
   render() {
     console.log("[>> Person.js] Inside render");
     return (
-      <div className={classes.Person} onClick={this.props.click}>
-        <p>
+      <WithClass classes={classes.Person}>
+        <p onClick={this.props.click}>
           Name: {this.props.name}, Age: {this.props.age}
         </p>
         <p>{this.props.children}</p>
@@ -32,7 +33,7 @@ class Person extends Component {
           onChange={this.props.changed}
           value={this.props.name}
         />
-      </div>
+      </WithClass>
     );
   }
 }

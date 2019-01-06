@@ -3,6 +3,7 @@ import React, { PureComponent } from "react";
 import classes from "../styles/App.css";
 import Persons from "../components/Persons";
 import Cockpit from "../components/Cockpit";
+import WithClass from "../components/WithClass";
 
 // Component states should only be changed in a select few components that are containers, like the top-level App component.
 // Container contains some part of the application's state.
@@ -121,7 +122,7 @@ class App extends PureComponent {
     }
 
     return (
-      <div className={classes.App}>
+      <WithClass classes={classes.App}>
         <button
           onClick={() => {
             this.setState({ showPerson: true });
@@ -136,7 +137,7 @@ class App extends PureComponent {
           clicked={this.togglePersonHandler}
         />
         {persons}
-      </div>
+      </WithClass>
     );
   }
 }
