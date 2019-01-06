@@ -69,6 +69,7 @@ class App extends Component {
 
     let persons = null;
     if (this.state.showPerson === true) {
+      style.backgroundColor = "red";
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
@@ -76,13 +77,15 @@ class App extends Component {
               <Person
                 {...person}
                 key={index}
-                // click={() => this.deletePersonHandler(index)}
+                click={() => this.deletePersonHandler(index)}
                 changed={event => this.nameChangeHandler(event, index)}
               />
             );
           })}
         </div>
       );
+    } else {
+      style.backgroundColor = "green";
     }
 
     /*
@@ -97,13 +100,18 @@ class App extends Component {
             click={this.onClick.bind(this, "Max!")}
           />
     */
+    const classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push("red");
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push("bold");
+    }
+
     return (
       <div className="App">
         <h1>Hi I am a React App</h1>
-        <p>This is a paragraph</p>
-        <button style={style} onClick={() => this.onClick("Maximilian")}>
-          Switch Name
-        </button>
+        <p className={classes.join(" ")}>This is a paragraph</p>
         <button style={style} onClick={this.togglePersonHandler}>
           Toggle Show Persons
         </button>
