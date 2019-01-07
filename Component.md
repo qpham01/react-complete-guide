@@ -90,6 +90,20 @@ Order of lifecycle method calls during update.
 - Do: Cause side effects
 - Don't: Update state which will trigger re-render
 
+### React 16.6 Lifecycle Update
+
+Avoid:
+
+- componentWillMount
+- componentWillUpdate
+- componentWillReceiveProps
+
+Instead, new lifecycle methods are added:
+
+- getDerivedStateFromProps(nextProps, prevState): Executed when props are updated and states should also be updated with them.
+  Note: states should not be coupled to props, so this use case should be rare.
+- getSnapshotBeforeUpdate: Get a DOM snapshot before update. Useful for storing scroll states and similar UI states managed in the DOM.
+
 ## Return Multiple Adjacent Tags
 
 Can return multiple adjacent tags in an array as long as each tag has a key property. For example:
@@ -100,3 +114,7 @@ render()
   return [<p key="0"/><button key="1"/><input key="2"/>]
 }
 ```
+
+## PureComponent functionality for functional components.
+
+Wrapping a functional component in React.memo() during exports will result in the functional component updating only if its state changes like with PureComponent.
