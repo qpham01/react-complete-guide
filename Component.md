@@ -118,3 +118,11 @@ render()
 ## PureComponent functionality for functional components.
 
 Wrapping a functional component in React.memo() during exports will result in the functional component updating only if its state changes like with PureComponent.
+
+## Planning a React Application
+
+![](img/react-planning.png)
+
+## Layout Components and Identify Application States
+
+![](img/burger-builder-components-and-states.png)
